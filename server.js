@@ -21,6 +21,8 @@ const homeController = require('./controllers/home');
  */
 
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 /**
  * Configure Nunjucks.
@@ -45,7 +47,6 @@ app.use(sass({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Development-only configuration.
 if (app.get('env') === 'development') {
     app.use(errorhandler());
 }
@@ -60,7 +61,7 @@ app.get('/', homeController.index);
  * Start Express server.
  */
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
     console.log('%s App is running at http://localhost:%d in %s.', chalk.green('✓'), app.get('port'), app.get('env'));
     console.log('  Press CTRL-C to stop.\n');
 });
