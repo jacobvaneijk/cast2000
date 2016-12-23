@@ -1,0 +1,5 @@
+node_modules
+
+# Compiled Sass files and sourcemaps.
+public/css/**/*.css
+public/css/**/*.css.map
