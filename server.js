@@ -58,6 +58,16 @@ if (app.get('env') === 'development') {
 app.get('/', homeController.index);
 
 /**
+ * Send song information to all connected clients every 1 second.
+ */
+
+const top2000 = require('./lib/top2000');
+
+setInterval(function() {
+    top2000.update(io);
+}, 1000);
+
+/**
  * Start Express server.
  */
 
