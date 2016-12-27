@@ -58,13 +58,73 @@ if (app.get('env') === 'development') {
 app.get('/', homeController.index);
 
 /**
- * Send song information to all connected clients every 1 second.
+ * Send song information to all connected client if a new song started playing.
  */
 
 const top2000 = require('./lib/top2000');
 
+// Immediatly emit data to the new client.
+io.on('connection', function(socket) {
+    top2000.getCurrentlyPlayingSong(function(song) {
+        song['position'] = top2000.findSongPosition(song['title'], song['artist']);
+
+        var songNext = top2000.getSongByPosition(song['position'] - 1);
+        var songPrevious = top2000.getSongByPosition(song['position'] + 1);
+
+        socket.emit('song-update', {
+            currentSong: {
+                title: song['title'],
+                artist: song['artist'],
+                position: song['position'],
+                startTime: song['starttime'],
+                stopTime: song['stoptime']
+            },
+            nextSong: {
+                title: songNext['s'],
+                artist: songNext['a'],
+                position: songNext['pos']
+            },
+            previousSong: {
+                title: songPrevious['s'],
+                artist: songPrevious['a'],
+                position: songPrevious['pos']
+            }
+        });
+    });
+});
+
+// Emit data to every client when a new song started playing.
 setInterval(function() {
-    top2000.update(io);
+    top2000.getCurrentlyPlayingSong(function(song) {
+        if (top2000.currentlyPlaying != song['title']) {
+            song['position'] = top2000.findSongPosition(song['title'], song['artist']);
+
+            var songNext = top2000.getSongByPosition(song['position'] - 1);
+            var songPrevious = top2000.getSongByPosition(song['position'] + 1);
+
+            io.emit('song-update', {
+                currentSong: {
+                    title: song['title'],
+                    artist: song['artist'],
+                    position: song['position'],
+                    startTime: song['starttime'],
+                    stopTime: song['stoptime']
+                },
+                nextSong: {
+                    title: songNext['s'],
+                    artist: songNext['a'],
+                    position: songNext['pos']
+                },
+                previousSong: {
+                    title: songPrevious['s'],
+                    artist: songPrevious['a'],
+                    position: songPrevious['pos']
+                }
+            });
+
+            top2000.currentlyPlaying = song['title'];
+        }
+    });
 }, 1000);
 
 /**
