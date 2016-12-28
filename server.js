@@ -58,7 +58,7 @@ if (app.get('env') === 'development') {
 app.get('/', homeController.index);
 
 /**
- * Send song informatio.
+ * Send song information.
  */
 
 const top2000 = require('./lib/top2000');
