@@ -1,3 +1,185 @@
-h1 {
-    color: #D91F27;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import "normalize";
+@import "variables";
+
+/* Document
+   ========================================================================== */
+
+html {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
+
+*
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font: {
+        family: $font-family-base;
+        size: $font-size-base;
+        weight: $font-weight-base;
+    }
+    color: $color-body;
+    background-color: $color-background;
+    position: relative;
+}
+
+/* Diamonds
+   ========================================================================== */
+
+.diamonds__wrapper {
+    position: relative;
+    width: 1650px;
+    height: 1650px;
+    top: 50%;
+    left: -16%;
+    transform: translateY(-50%);
+}
+
+    .diamond {
+        position: absolute;
+        transform: rotate(45deg);
+        border-radius: 100px;
+    }
+
+    .diamond--outer {
+        width: 1650px;
+        height: 1650px;
+        background-color: #FFF;
+        opacity: .5;
+        animation: {
+            name: breathing-diamond-outer;
+            duration: 6s;
+            iteration-count: infinite;
+        }
+    }
+
+    .diamond--inner {
+        width: 1450px;
+        height: 1450px;
+        background-color: $color-primary;
+        top: 100px;
+        left: 100px;
+        opacity: .7;
+        animation: {
+            name: breathing-diamond-inner;
+            duration: 6s;
+            iteration-count: infinite;
+            delay: .8s;
+        }
+    }
+
+@keyframes breathing-diamond-outer {
+    0% {
+        width: 1650px;
+        height: 1650px;
+        transform: rotate(45deg);
+    }
+
+    50% {
+        width: 1670px;
+        height: 1670px;
+        transform: translate(-10px, -10px) rotate(45deg);
+    }
+
+    100% {
+        width: 1650px;
+        height: 1650px;
+        transform: translate(0, 0) rotate(45deg);
+    }
+}
+
+@keyframes breathing-diamond-inner {
+    0% {
+        width: 1450px;
+        height: 1450px;
+        transform: rotate(45deg);
+    }
+
+    50% {
+        width: 1470px;
+        height: 1470px;
+        transform: translate(-10px, -10px) rotate(45deg);
+    }
+
+    100% {
+        width: 1450px;
+        height: 1450px;
+        transform: translate(0, 0) rotate(45deg);
+    }
+}
+
+/* Songs
+   ========================================================================== */
+
+.songs__wrapper {
+    position: absolute;
+    top: 0;
+    left: 96px;
+    width: 75%;
+    height: 100%;
+}
+
+    .song {
+        position: absolute;
+        color: #FFF;
+    }
+
+    .song:first-child {
+        top: 20%;
+        transform: translateY(-50%);
+    }
+
+    .song:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .song:last-child {
+        bottom: 20%;
+        transform: translateY(50%);
+    }
+
+    .song__left {
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+    }
+
+        .song__position {
+            font-size: 72px;
+            text-align: right;
+            margin: 0;
+        }
+
+    .song__body {
+        display: inline-block;
+        margin-left: 80px;
+    }
+
+        .song__title {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .song__artist {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .song--playing {
+            .song__position {
+                font-size: 112px;
+            }
+
+            .song__title {
+                font-size: 72px;
+            }
+        }

@@ -58,7 +58,7 @@ if (app.get('env') === 'development') {
 app.get('/', homeController.index);
 
 /**
- * Send song information to all connected client if a new song started playing.
+ * Send song informatio.
  */
 
 const top2000 = require('./lib/top2000');

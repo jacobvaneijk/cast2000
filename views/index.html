@@ -1,5 +1,43 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <h1>Cast2000</h1>
+    <div class="diamonds__wrapper">
+        <div class="diamond diamond--outer"></div>
+        <div class="diamond diamond--inner"></div>
+    </div>
+
+    <div class="songs__wrapper">
+        <div class="song">
+            <div class="song__left">
+                <p class="song__position js-previous-song-position"></p>
+            </div>
+
+            <div class="song__body">
+                <h1 class="song__title js-previous-song-title"></h1>
+                <p class="song__artist js-previous-song-artist"></p>
+            </div>
+        </div>
+
+        <div class="song song--playing">
+            <div class="song__left">
+                <p class="song__position js-current-song-position"></p>
+            </div>
+
+            <div class="song__body">
+                <h1 class="song__title js-current-song-title"></h1>
+                <p class="song__artist js-current-song-artist"></p>
+            </div>
+        </div>
+
+        <div class="song">
+            <div class="song__left">
+                <p class="song__position js-next-song-position"></p>
+            </div>
+
+            <div class="song__body">
+                <h1 class="song__title js-next-song-title"></h1>
+                <p class="song__artist js-next-song-artist"></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
